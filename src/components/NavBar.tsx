@@ -13,7 +13,12 @@ function NavBar() {
                 <div className="flex justify-between items-center h-16">
                     {/* Left side - Logo and Brand */}
                     <div className="flex items-center space-x-3">
-                        <Logo size={32} showName={false} disabled={false} />
+                        <div
+                            className="cursor-pointer"
+                            onClick={() => navigate("/")}
+                        >
+                            <Logo size={32} showName={false} disabled={false} />
+                        </div>
                         <span className="text-xl font-semibold text-gray-900">
                             Offer Gauge
                         </span>

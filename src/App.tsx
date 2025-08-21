@@ -6,6 +6,7 @@ import Landing from "./pages/Landing/Landing";
 import Home from "./pages/Home/Home";
 import NotFound from "./pages/NotFound/NotFound";
 import Auth from "./pages/Auth/Auth";
+import FinancialOverview from "./pages/FinancialOverview/FinancialOverview";
 
 function App() {
     return (
@@ -14,6 +15,10 @@ function App() {
                 <Routes>
                     <Route path="/landing" element={<Landing />} />
                     <Route path="/auth" element={<Auth />} />
+                    <Route
+                        path="/financial-overview"
+                        element={<FinancialOverview />}
+                    />
 
                     {/* Protected Routes */}
                     <Route
