@@ -13,10 +13,7 @@ function NavBar() {
                 <div className="flex justify-between items-center h-16">
                     {/* Left side - Logo and Brand */}
                     <div className="flex items-center space-x-3">
-                        <div
-                            className="cursor-pointer"
-                            onClick={() => navigate("/")}
-                        >
+                        <div className="cursor-pointer">
                             <Logo size={32} showName={false} disabled={false} />
                         </div>
                         <span className="text-xl font-semibold text-gray-900">
@@ -32,7 +29,9 @@ function NavBar() {
                             // Show greeting and Sign Out button when user is logged in
                             <div className="flex items-center gap-4">
                                 <span className="text-sm text-gray-600">
-                                    Hello, {user.user_metadata?.full_name || user.email}
+                                    Hello,{" "}
+                                    {user.user_metadata?.full_name ||
+                                        user.email}
                                 </span>
                                 <SignOutButton />
                             </div>
@@ -45,12 +44,12 @@ function NavBar() {
                                         color: "var(--color-teal)",
                                     }}
                                     onMouseEnter={(e) =>
-                                    (e.currentTarget.style.color =
-                                        "var(--color-teal-dark)")
+                                        (e.currentTarget.style.color =
+                                            "var(--color-teal-dark)")
                                     }
                                     onMouseLeave={(e) =>
-                                    (e.currentTarget.style.color =
-                                        "var(--color-teal)")
+                                        (e.currentTarget.style.color =
+                                            "var(--color-teal)")
                                     }
                                     onClick={() => navigate("/auth")}
                                 >
@@ -59,15 +58,16 @@ function NavBar() {
                                 <button
                                     className="text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
                                     style={{
-                                        backgroundColor: "var(--color-terracotta)",
+                                        backgroundColor:
+                                            "var(--color-terracotta)",
                                     }}
                                     onMouseEnter={(e) =>
-                                    (e.currentTarget.style.backgroundColor =
-                                        "var(--color-terracotta-dark)")
+                                        (e.currentTarget.style.backgroundColor =
+                                            "var(--color-terracotta-dark)")
                                     }
                                     onMouseLeave={(e) =>
-                                    (e.currentTarget.style.backgroundColor =
-                                        "var(--color-terracotta)")
+                                        (e.currentTarget.style.backgroundColor =
+                                            "var(--color-terracotta)")
                                     }
                                     onClick={() => navigate("/auth")}
                                 >

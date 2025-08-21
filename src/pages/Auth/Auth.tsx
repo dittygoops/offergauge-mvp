@@ -43,7 +43,9 @@ function Auth() {
                             className="text-lg leading-relaxed mb-8"
                             style={{ color: "var(--color-gray)" }}
                         >
-                            Authenticate with Google so we can save your analysis and send you insights about your deal evaluation.
+                            Authenticate with Google so we can save your
+                            analysis and send you insights about your deal
+                            evaluation.
                         </p>
                     </div>
 

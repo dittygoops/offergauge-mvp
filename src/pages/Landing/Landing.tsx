@@ -3,10 +3,14 @@ import Card from "../../components/Card";
 import Button from "../../components/Button";
 import BadgeIcon from "../../icons/BadgeIcon";
 import ShieldIcon from "../../icons/ShieldIcon";
+import ArrowRightIcon from "../../icons/ArrowRightIcon";
 import UsersIcon from "../../icons/UsersIcon";
 import CheckIcon from "../../icons/CheckIcon";
 
+import { useNavigate } from "react-router-dom";
+
 function Landing() {
+    const navigate = useNavigate();
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
             <NavBar />

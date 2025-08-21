@@ -30,12 +30,14 @@ const SignOutButton = ({ className = "" }: SignOutButtonProps) => {
             }}
             onMouseEnter={(e) => {
                 if (!loading) {
-                    e.currentTarget.style.backgroundColor = "var(--color-terracotta-dark)";
+                    e.currentTarget.style.backgroundColor =
+                        "var(--color-terracotta-dark)";
                 }
             }}
             onMouseLeave={(e) => {
                 if (!loading) {
-                    e.currentTarget.style.backgroundColor = "var(--color-terracotta)";
+                    e.currentTarget.style.backgroundColor =
+                        "var(--color-terracotta)";
                 }
             }}
         >
