@@ -1,22 +1,25 @@
 @import "tailwindcss";
-@theme {
-  --color-teal: #008080;
-  --color-teal-dark: #006666;
-  --color-terracotta: #E07B5D;
-  --color-terracotta-dark: #C66A51;
-  --color-terracotta-light: #E7A68D;
-  --color-dark-charcoal: #222222;
-  --color-slate-gray: #555555;
-  --color-gray: #777777;
-  --color-gray-light: #CCCCCC;
-  --color-gray-pale: #F4F4F4;
-  --color-white: #FFFFFF;
-  --color-black: #000000;
-  --color-light-beige: #FFF5E6;
-  --color-light-warm-beige: #FFF8F2;
-  --color-teal-gradient-start: #008080;
-  --color-teal-gradient-end: #00B3B3;
-  --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+@layer base {
+  :root {
+    --color-teal: #008080;
+    --color-teal-dark: #006666;
+    --color-terracotta: #E07B5D;
+    --color-terracotta-dark: #C66A51;
+    --color-terracotta-light: #E7A68D;
+    --color-dark-charcoal: #222222;
+    --color-slate-gray: #555555;
+    --color-gray: #777777;
+    --color-gray-light: #CCCCCC;
+    --color-gray-pale: #F4F4F4;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-light-beige: #FFF5E6;
+    --color-light-warm-beige: #FFF8F2;
+    --color-teal-gradient-start: #008080;
+    --color-teal-gradient-end: #00B3B3;
+    --font-sans: Inter, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
 }
 
 /* Make Inter the default font across the entire project */

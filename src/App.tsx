@@ -1,5 +1,9 @@
+import Logo from './assets/Logo';
+
 function App() {
-  return <div className="text-teal-dark text-3xl font-bold">Hello World</div>;
+  return (
+    <Logo size={64} showName={true} disabled={false} />
+  );
 }
 
 export default App;
