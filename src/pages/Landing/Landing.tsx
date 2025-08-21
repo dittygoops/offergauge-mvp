@@ -14,7 +14,7 @@ function Landing() {
             {/* Hero Section */}
             <div
                 className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-16"
-                style={{ backgroundColor: "var(--color-light-warm-beige)" }}
+                style={{ backgroundColor: "var(--color-light-beige)" }}
             >
                 <div className="max-w-4xl mx-auto text-center">
                     <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-8">
@@ -32,7 +32,7 @@ function Landing() {
             {/* Testimonials Section */}
             <div
                 className="py-16 px-4 sm:px-6 lg:px-8"
-                style={{ backgroundColor: "var(--color-light-beige)" }}
+                style={{ backgroundColor: "var(--color-gray-pale)" }}
             >
                 <div className="max-w-6xl mx-auto">
                     <h2 className="text-xl md:text-3xl font-bold text-gray-900 text-center mb-12">
