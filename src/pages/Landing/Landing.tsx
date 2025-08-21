@@ -1,15 +1,12 @@
 import NavBar from "../../components/NavBar";
 import Card from "../../components/Card";
+import Button from "../../components/Button";
 import BadgeIcon from "../../icons/BadgeIcon";
 import ShieldIcon from "../../icons/ShieldIcon";
 import UsersIcon from "../../icons/UsersIcon";
-import ArrowRightIcon from "../../icons/ArrowRightIcon";
 import CheckIcon from "../../icons/CheckIcon";
 
-import { useNavigate } from "react-router-dom";
-
 function Landing() {
-    const navigate = useNavigate();
     return (
         <div className="min-h-screen bg-gray-50 flex flex-col">
             <NavBar />
@@ -28,22 +25,7 @@ function Landing() {
                         acquisition <br />
                         financing with AI-powered insights.
                     </p>
-                    <button
-                        className="inline-flex items-center px-6 py-3 text-lg font-medium text-white rounded-md transition-all duration-300 cursor-pointer group"
-                        style={{ backgroundColor: "var(--color-terracotta)" }}
-                        onClick={() => navigate("/signup")}
-                        onMouseEnter={(e) =>
-                            (e.currentTarget.style.backgroundColor =
-                                "var(--color-terracotta-dark)")
-                        }
-                        onMouseLeave={(e) =>
-                            (e.currentTarget.style.backgroundColor =
-                                "var(--color-terracotta)")
-                        }
-                    >
-                        Get Started
-                        <ArrowRightIcon className="ml-2 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
-                    </button>
+                    <Button navigate="/signup" text="Get Started" />
                 </div>
             </div>
 
