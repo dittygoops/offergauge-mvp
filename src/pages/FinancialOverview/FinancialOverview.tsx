@@ -6,10 +6,10 @@ import { useFormData } from "../../contexts/FormDataContext";
 
 function FinancialOverview() {
     const [toast, setToast] = useState({ isVisible: false, message: "" });
-    const [fieldErrors, setFieldErrors] = useState<{ [key: string]: boolean }>({});
-    const { formData } = useFormData();
-    
-
+    const [fieldErrors, setFieldErrors] = useState<{ [key: string]: boolean }>(
+        {},
+    );
+    const { formData, updateMultipleFields } = useFormData();
 
     const handleContinue = () => {
         // Get current values from global form data
@@ -18,25 +18,33 @@ function FinancialOverview() {
         const annualRevenue = formData["annual-revenue"];
         const ebitda = formData.ebitda;
         const workingCapital = formData["working-capital"];
+        const equipmentAssets = formData["equipment-assets"];
+        const inventory = formData.inventory;
 
-        console.log("Field values:", { 
-            "business-name": businessName, 
-            "asking-price": askingPrice, 
-            "annual-revenue": annualRevenue, 
-            "ebitda": ebitda, 
-            "working-capital": workingCapital 
+        console.log("Field values:", {
+            "business-name": businessName,
+            "asking-price": askingPrice,
+            "annual-revenue": annualRevenue,
+            ebitda: ebitda,
+            "working-capital": workingCapital,
+            "equipment-assets": equipmentAssets,
+            inventory: inventory,
         });
 
         // Check if any required field is empty and set field errors
         const fieldErrors = {
             "Business Name": !businessName.trim(),
             "Asking Price": askingPrice === null || askingPrice === undefined,
-            "Annual Revenue": annualRevenue === null || annualRevenue === undefined,
-            "EBITDA": ebitda === null || ebitda === undefined,
-            "Working Capital": workingCapital === null || workingCapital === undefined,
+            "Annual Revenue":
+                annualRevenue === null || annualRevenue === undefined,
+            EBITDA: ebitda === null || ebitda === undefined,
+            "Working Capital":
+                workingCapital === null || workingCapital === undefined,
         };
 
-        const hasEmptyFields = Object.values(fieldErrors).some(error => error);
+        const hasEmptyFields = Object.values(fieldErrors).some(
+            (error) => error,
+        );
         setFieldErrors(fieldErrors);
 
         console.log("Has empty fields:", hasEmptyFields);
@@ -48,8 +56,28 @@ function FinancialOverview() {
                 message: "Missing required fields",
             });
         } else {
-            // Clear field errors and proceed to next step
+            // Clear field errors and update context with all current data
             setFieldErrors({});
+            const updates = {
+                "business-name": businessName,
+                "asking-price": askingPrice,
+                "annual-revenue": annualRevenue,
+                ebitda: ebitda,
+                "equipment-assets": equipmentAssets,
+                inventory: inventory,
+                "working-capital": workingCapital,
+                "price-ebitda-multiple":
+                    ebitda && askingPrice ? askingPrice / ebitda : null,
+            };
+
+            updateMultipleFields(updates);
+            console.log("Form data context:", formData);
+            console.log("Updates:", updates);
+            console.log(
+                "Price/EBITDA Multiple:",
+                updates["price-ebitda-multiple"],
+            );
+
             console.log("All required fields filled, proceeding...");
             window.location.href = "/source-funds";
         }
@@ -176,6 +204,131 @@ function FinancialOverview() {
                                 },
                             ]}
                         />
+                    </div>
+
+                    {/* Summary Section */}
+                    <div className="max-w-4xl mx-auto mt-8">
+                        <div
+                            className="rounded-lg border p-4"
+                            style={{
+                                backgroundColor:
+                                    "var(--color-light-warm-beige)",
+                                borderColor: "var(--color-terracotta-light)",
+                            }}
+                        >
+                            <h3
+                                className="text-lg font-semibold mb-4 text-left"
+                                style={{
+                                    color: "var(--color-teal)",
+                                }}
+                            >
+                                Summary
+                            </h3>
+
+                            <div className="space-y-1">
+                                {/* Asking Price */}
+                                <div className="flex justify-between items-center">
+                                    <span
+                                        className="text-sm"
+                                        style={{ color: "var(--color-gray)" }}
+                                    >
+                                        Asking Price:
+                                    </span>
+                                    <span
+                                        className="font-medium"
+                                        style={{
+                                            color: "var(--color-dark-charcoal)",
+                                        }}
+                                    >
+                                        {new Intl.NumberFormat("en-US", {
+                                            style: "currency",
+                                            currency: "USD",
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 0,
+                                        }).format(
+                                            formData["asking-price"] || 0,
+                                        )}
+                                    </span>
+                                </div>
+
+                                {/* Annual Revenue */}
+                                <div className="flex justify-between items-center">
+                                    <span
+                                        className="text-sm"
+                                        style={{ color: "var(--color-gray)" }}
+                                    >
+                                        Annual Revenue:
+                                    </span>
+                                    <span
+                                        className="font-medium"
+                                        style={{
+                                            color: "var(--color-dark-charcoal)",
+                                        }}
+                                    >
+                                        {new Intl.NumberFormat("en-US", {
+                                            style: "currency",
+                                            currency: "USD",
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 0,
+                                        }).format(
+                                            formData["annual-revenue"] || 0,
+                                        )}
+                                    </span>
+                                </div>
+
+                                {/* EBITDA */}
+                                <div className="flex justify-between items-center">
+                                    <span
+                                        className="text-sm"
+                                        style={{ color: "var(--color-gray)" }}
+                                    >
+                                        EBITDA:
+                                    </span>
+                                    <span
+                                        className="font-medium"
+                                        style={{
+                                            color: "var(--color-dark-charcoal)",
+                                        }}
+                                    >
+                                        {new Intl.NumberFormat("en-US", {
+                                            style: "currency",
+                                            currency: "USD",
+                                            minimumFractionDigits: 0,
+                                            maximumFractionDigits: 0,
+                                        }).format(formData.ebitda || 0)}
+                                    </span>
+                                </div>
+
+                                {/* Price/EBITDA Multiple */}
+                                <div
+                                    className="flex justify-between items-center pt-2 border-t"
+                                    style={{
+                                        borderColor: "var(--color-gray-light)",
+                                    }}
+                                >
+                                    <span
+                                        className="text-sm font-medium"
+                                        style={{ color: "var(--color-gray)" }}
+                                    >
+                                        Price/EBITDA Multiple:
+                                    </span>
+                                    <span
+                                        className="font-semibold"
+                                        style={{
+                                            color: "var(--color-dark-charcoal)",
+                                        }}
+                                    >
+                                        {formData.ebitda && formData.ebitda > 0
+                                            ? (
+                                                  (formData["asking-price"] ||
+                                                      0) / formData.ebitda
+                                              ).toFixed(2)
+                                            : "0.00"}
+                                        x
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Navigation Buttons */}

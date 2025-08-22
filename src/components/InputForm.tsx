@@ -37,9 +37,9 @@ function InputForm({
         // Convert "Business Name" -> "business-name"
         const standardizedKey = title
             .toLowerCase()
-            .replace(/\s+/g, '-')
-            .replace(/[^a-z0-9-]/g, '') as keyof typeof formData;
-        
+            .replace(/\s+/g, "-")
+            .replace(/[^a-z0-9-]/g, "") as keyof typeof formData;
+
         return standardizedKey;
     };
 
@@ -51,7 +51,7 @@ function InputForm({
             const globalValue = formData[fieldKey];
             if (globalValue !== undefined) {
                 // Convert all values to strings for local state
-                newValues[index] = String(globalValue || '');
+                newValues[index] = String(globalValue || "");
             }
         });
         setValues(newValues);
@@ -59,22 +59,26 @@ function InputForm({
 
     const validateAndFormatNumber = (value: string): number | null => {
         // Remove commas and spaces
-        const cleanValue = value.replace(/[, ]/g, '');
-        
+        const cleanValue = value.replace(/[, ]/g, "");
+
         // Check if it's a valid number
-        if (cleanValue === '' || cleanValue === '-') {
+        if (cleanValue === "" || cleanValue === "-") {
             return null;
         }
-        
+
         const numValue = parseFloat(cleanValue);
         if (isNaN(numValue)) {
             return null;
         }
-        
+
         return numValue;
     };
 
-    const validateInput = (value: string, fieldTitle: string, type?: string): boolean => {
+    const validateInput = (
+        value: string,
+        fieldTitle: string,
+        type?: string,
+    ): boolean => {
         if (type === "number") {
             // For numeric fields, validate it's a valid float
             const numValue = validateAndFormatNumber(value);
@@ -100,38 +104,39 @@ function InputForm({
 
     const handleInputChange = (index: number, value: string, type?: string) => {
         const fieldTitle = inputFields[index].title;
-        
+
         let processedValue: string | number | null = value;
 
         if (type === "number") {
             // For numbers, validate and convert to float
             const numValue = validateAndFormatNumber(value);
             processedValue = numValue;
-            
+
             // Update local state with formatted display value
-            const displayValue = value === '' ? '' : value.replace(/[^0-9.,-]/g, '');
-            setValues(prev => ({
+            const displayValue =
+                value === "" ? "" : value.replace(/[^0-9.,-]/g, "");
+            setValues((prev) => ({
                 ...prev,
-                [index]: displayValue
+                [index]: displayValue,
             }));
         } else {
             // For text fields (like business name), keep as string
             processedValue = value;
-            setValues(prev => ({
+            setValues((prev) => ({
                 ...prev,
-                [index]: value
+                [index]: value,
             }));
         }
-        
+
         // Update global form data
         const fieldKey = getFieldKey(fieldTitle);
         updateFormData(fieldKey, processedValue);
-        
+
         if (onValuesChange) {
             // Convert all values to strings for the callback
             const stringValues: { [key: string]: string } = {};
-            Object.keys(values).forEach(key => {
-                stringValues[key] = String(values[key] || '');
+            Object.keys(values).forEach((key) => {
+                stringValues[key] = String(values[key] || "");
             });
             onValuesChange(stringValues);
         }
@@ -139,9 +144,10 @@ function InputForm({
 
     const handleInputBlur = (index: number, value: string, type?: string) => {
         const fieldTitle = inputFields[index].title;
-        
+
         // Validate input when user leaves the field
-        if (value.trim()) { // Only validate if there's a value
+        if (value.trim()) {
+            // Only validate if there's a value
             validateInput(value, fieldTitle, type);
         }
     };
@@ -195,13 +201,24 @@ function InputForm({
                                     if (field.type === "number") {
                                         // Allow: backspace, delete, tab, escape, enter, numbers, comma, period, minus
                                         const allowedKeys = [
-                                            'Backspace', 'Delete', 'Tab', 'Escape', 'Enter',
-                                            'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'
+                                            "Backspace",
+                                            "Delete",
+                                            "Tab",
+                                            "Escape",
+                                            "Enter",
+                                            "ArrowLeft",
+                                            "ArrowRight",
+                                            "ArrowUp",
+                                            "ArrowDown",
                                         ];
                                         const isNumber = /[0-9]/.test(e.key);
-                                        const isAllowed = allowedKeys.includes(e.key) || isNumber || 
-                                                         e.key === ',' || e.key === '.' || e.key === '-';
-                                        
+                                        const isAllowed =
+                                            allowedKeys.includes(e.key) ||
+                                            isNumber ||
+                                            e.key === "," ||
+                                            e.key === "." ||
+                                            e.key === "-";
+
                                         if (!isAllowed) {
                                             e.preventDefault();
                                         }
@@ -222,11 +239,15 @@ function InputForm({
                                     )
                                 }
                                 className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors text-sm ${
-                                    field.required && fieldErrors && fieldErrors[field.title] 
-                                        ? "border-red-500" 
+                                    field.required &&
+                                    fieldErrors &&
+                                    fieldErrors[field.title]
+                                        ? "border-red-500"
                                         : "border-gray-300"
                                 } ${field.type === "number" ? "pl-8" : ""}`}
-                                style={{ backgroundColor: "var(--color-white)" }}
+                                style={{
+                                    backgroundColor: "var(--color-white)",
+                                }}
                             />
                         </div>
 
