@@ -4,7 +4,7 @@ import Toast from "../../components/Toast";
 import { useState } from "react";
 import { useFormData } from "../../contexts/FormDataContext";
 
-function FinancialOverview() {
+function SourceFunds() {
     const [toast, setToast] = useState({ isVisible: false, message: "" });
     const [fieldErrors, setFieldErrors] = useState<{ [key: string]: boolean }>({});
     const { formData } = useFormData();
@@ -13,27 +13,21 @@ function FinancialOverview() {
 
     const handleContinue = () => {
         // Get current values from global form data
-        const businessName = formData["business-name"] || "";
-        const askingPrice = formData["asking-price"];
-        const annualRevenue = formData["annual-revenue"];
-        const ebitda = formData.ebitda;
-        const workingCapital = formData["working-capital"];
+        const buyerCash = formData["buyer-cash"];
+        const loanAmount = formData["loan-amount"];
+        const loanTerm = formData["loan-term"];
+        const interestRate = formData["interest-rate"];
+        const loanClosingCosts = formData["loan-closing-costs"];
 
-        console.log("Field values:", { 
-            "business-name": businessName, 
-            "asking-price": askingPrice, 
-            "annual-revenue": annualRevenue, 
-            "ebitda": ebitda, 
-            "working-capital": workingCapital 
-        });
+        console.log("Field values:", { buyerCash, loanAmount, loanTerm, interestRate, loanClosingCosts });
 
         // Check if any required field is empty and set field errors
         const fieldErrors = {
-            "Business Name": !businessName.trim(),
-            "Asking Price": askingPrice === null || askingPrice === undefined,
-            "Annual Revenue": annualRevenue === null || annualRevenue === undefined,
-            "EBITDA": ebitda === null || ebitda === undefined,
-            "Working Capital": workingCapital === null || workingCapital === undefined,
+            "Buyer Cash": buyerCash === null || buyerCash === undefined,
+            "Loan Amount": loanAmount === null || loanAmount === undefined,
+            "Loan Term (Years)": loanTerm === null || loanTerm === undefined,
+            "Interest Rate (%)": interestRate === null || interestRate === undefined,
+            "Loan Closing Costs": loanClosingCosts === null || loanClosingCosts === undefined,
         };
 
         const hasEmptyFields = Object.values(fieldErrors).some(error => error);
@@ -51,7 +45,6 @@ function FinancialOverview() {
             // Clear field errors and proceed to next step
             setFieldErrors({});
             console.log("All required fields filled, proceeding...");
-            window.location.href = "/source-funds";
         }
     };
 
@@ -69,113 +62,76 @@ function FinancialOverview() {
                         className="text-4xl md:text-5xl font-bold text-gray-900 mb-8"
                         style={{ color: "var(--color-teal)" }}
                     >
-                        Financial Overview
+                        Source of Funds
                     </h1>
                     <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto">
-                        Tell us about the business financials
+                        Tell us about your funding sources and loan details
                     </p>
 
                     {/* Forms Container */}
                     <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
-                        {/* Business Information Form */}
+                        {/* Funding Sources Form */}
                         <div>
                             <InputForm
-                                title="Business Information"
+                                title="Funding Sources"
                                 fieldErrors={fieldErrors}
                                 inputFields={[
                                     {
-                                        icon: (
-                                            <span className="text-lg">🏢</span>
-                                        ),
-                                        title: "Business Name",
-                                        description:
-                                            "Name of the business you are acquiring",
-                                        placeholder: "Enter business name",
+                                        icon: <span className="text-lg">💵</span>,
+                                        title: "Buyer Cash",
+                                        description: "Amount of cash the buyer will contribute to the purchase",
+                                        placeholder: "Enter buyer cash amount",
+                                        type: "number",
                                         required: true,
                                     },
                                     {
-                                        icon: (
-                                            <span className="text-lg">💰</span>
-                                        ),
-                                        title: "Asking Price",
-                                        description:
-                                            "The total purchase price for the business",
-                                        placeholder: "Enter asking price",
+                                        icon: <span className="text-lg">🤝</span>,
+                                        title: "Seller Financing",
+                                        description: "Amount the seller will finance",
+                                        placeholder: "Enter seller financing amount",
                                         type: "number",
-                                        required: true,
                                     },
                                 ]}
                             />
                         </div>
 
-                        {/* Financial Performance Form */}
+                        {/* Term Debt/Loan Details Form */}
                         <div>
                             <InputForm
-                                title="Financial Performance"
+                                title="Term Debt/Loan Details"
                                 fieldErrors={fieldErrors}
                                 inputFields={[
                                     {
-                                        icon: (
-                                            <span className="text-lg">📊</span>
-                                        ),
-                                        title: "Annual Revenue",
-                                        description:
-                                            "Total annual revenue of the business",
-                                        placeholder: "Enter annual revenue",
+                                        icon: <span className="text-lg">🏦</span>,
+                                        title: "Loan Amount",
+                                        description: "Total amount to be borrowed",
+                                        placeholder: "Enter loan amount",
                                         type: "number",
-                                        required: true,
                                     },
                                     {
-                                        icon: (
-                                            <span className="text-lg">💵</span>
-                                        ),
-                                        title: "EBITDA",
-                                        description:
-                                            "Earnings before interest, taxes, depreciation, and amortization",
-                                        placeholder: "Enter EBITDA",
+                                        icon: <span className="text-lg">⏰</span>,
+                                        title: "Loan Term (Years)",
+                                        description: "Length of loan in years",
+                                        placeholder: "Enter loan term",
                                         type: "number",
-                                        required: true,
+                                    },
+                                    {
+                                        icon: <span className="text-lg">📊</span>,
+                                        title: "Interest Rate (%)",
+                                        description: "Annual interest rate percentage",
+                                        placeholder: "Enter interest rate",
+                                        type: "number",
+                                    },
+                                    {
+                                        icon: <span className="text-lg">💰</span>,
+                                        title: "Loan Closing Costs",
+                                        description: "Fees and costs associated with loan closing",
+                                        placeholder: "Enter closing costs",
+                                        type: "number",
                                     },
                                 ]}
                             />
                         </div>
-                    </div>
-
-                    {/* Assets & Working Capital Form */}
-                    <div className="max-w-4xl mx-auto mt-12">
-                        <InputForm
-                            title="Assets & Working Capital"
-                            layout="row"
-                            gridCols={3}
-                            fieldErrors={fieldErrors}
-                            inputFields={[
-                                {
-                                    icon: <span className="text-lg">🏭</span>,
-                                    title: "Equipment & Assets",
-                                    description:
-                                        "Machinery, equipment, and real estate value",
-                                    placeholder:
-                                        "Enter equipment & assets value",
-                                    type: "number",
-                                },
-                                {
-                                    icon: <span className="text-lg">📦</span>,
-                                    title: "Inventory",
-                                    description: "Current inventory value",
-                                    placeholder: "Enter inventory value",
-                                    type: "number",
-                                },
-                                {
-                                    icon: <span className="text-lg">💼</span>,
-                                    title: "Working Capital",
-                                    description:
-                                        "Current assets minus current liabilities",
-                                    placeholder: "Enter working capital",
-                                    type: "number",
-                                    required: true,
-                                },
-                            ]}
-                        />
                     </div>
 
                     {/* Navigation Buttons */}
@@ -187,7 +143,7 @@ function FinancialOverview() {
                                     color: "var(--color-teal)",
                                 }}
                                 onClick={() =>
-                                    (window.location.href = "/Landing")
+                                    (window.location.href = "/financial-overview")
                                 }
                             >
                                 <svg
@@ -201,7 +157,7 @@ function FinancialOverview() {
                                         clipRule="evenodd"
                                     />
                                 </svg>
-                                Back to Home
+                                Back
                             </button>
                             <button
                                 className="inline-flex items-center px-6 py-2 text-base font-medium text-white rounded-md transition-all duration-300 cursor-pointer group"
@@ -247,4 +203,4 @@ function FinancialOverview() {
     );
 }
 
-export default FinancialOverview;
+export default SourceFunds;
