@@ -2,50 +2,110 @@ import { createContext, useContext, useState } from "react";
 import type { ReactNode } from "react";
 
 interface FormData {
-    // Financial Overview
-    "business-name": string;
-    "asking-price": number | null;
-    "annual-revenue": number | null;
-    ebitda: number | null;
-    "equipment-assets": number | null;
-    inventory: number | null;
-    "working-capital": number | null;
-    "price-ebitda-multiple": number | null;
+    // Business Information
+    businessName: string;
+    askingPrice: number | null;
+    annualRevenue: number | null;
+    annualNetIncome: number | null;
 
-    // Source Funds
-    "buyer-cash": number | null;
-    "seller-financing": number | null;
-    "loan-amount": number | null;
-    "loan-term": number | null;
-    "interest-rate": number | null;
-    "loan-closing-costs": number | null;
+    // Inclusions
+    ffeIncluded: boolean;
+    inventoryIncluded: boolean;
+    realEstateIncluded: boolean;
+
+    // Conditional inputs
+    ffeValue: number | null;
+    inventoryValue: number | null;
+    purchasingRealEstate: boolean;
+    realEstateValue: number | null;
+    annualRent: number | null;
+
+    // Working Capital
+    buyerMinSalary: number | null;
+    workingCapitalRequirement: number | null;
+    capexMaintenance: number | null;
+    capexNewInvestments: number | null;
+
+    // Use of Funds
+    dueToSellerBusiness: number | null;
+    dueToSellerRealEstate: number | null;
+    totalDueToSeller: number | null;
+    totalCashAtClosingToSeller: number | null;
+    sellerFinancingPaidToSeller: number | null;
+    workingCapitalRequired: number | null;
+    loanClosingCosts: number | null;
+    totalUseOfFunds: number | null;
+
+    // Financing
+    buyerCash: number | null;
+    buyerCashPercent: number | null;
+    sellerFinancing: number | null;
+    sellerFinancingPercent: number | null;
+    termLoan: number | null;
+    loanClosingCostsPercent: number | null;
+
+    // Lender's Analysis
+    loanPayments: number | null;
+    equipmentAssets: number | null;
+    inventory: number | null;
+    workingCapital: number | null;
+    loanAmount: number | null;
+    loanClosingCost: number | null;
+    ebitda: number | null;
+    loanTerm: number | null;
+    interestRate: number | null;
 }
 
 interface FormDataContextType {
     formData: FormData;
     updateFormData: (
         field: keyof FormData,
-        value: string | number | null,
+        value: string | number | boolean | null,
     ) => void;
     updateMultipleFields: (updates: Partial<FormData>) => void;
     clearFormData: () => void;
 }
 
 const defaultFormData: FormData = {
-    "business-name": "",
-    "asking-price": null,
-    "annual-revenue": null,
-    ebitda: null,
-    "equipment-assets": null,
+    businessName: "",
+    askingPrice: null,
+    annualRevenue: null,
+    annualNetIncome: null,
+    ffeIncluded: false,
+    inventoryIncluded: false,
+    realEstateIncluded: false,
+    ffeValue: null,
+    inventoryValue: null,
+    purchasingRealEstate: false,
+    realEstateValue: null,
+    annualRent: null,
+    buyerMinSalary: null,
+    workingCapitalRequirement: null,
+    capexMaintenance: null,
+    capexNewInvestments: null,
+    dueToSellerBusiness: null,
+    dueToSellerRealEstate: null,
+    totalDueToSeller: null,
+    totalCashAtClosingToSeller: null,
+    sellerFinancingPaidToSeller: null,
+    workingCapitalRequired: null,
+    loanClosingCosts: null,
+    totalUseOfFunds: null,
+    buyerCash: null,
+    buyerCashPercent: null,
+    sellerFinancing: null,
+    sellerFinancingPercent: null,
+    termLoan: null,
+    loanClosingCostsPercent: null,
+    loanPayments: null,
+    equipmentAssets: null,
     inventory: null,
-    "working-capital": null,
-    "price-ebitda-multiple": null,
-    "buyer-cash": null,
-    "seller-financing": null,
-    "loan-amount": null,
-    "loan-term": null,
-    "interest-rate": null,
-    "loan-closing-costs": null,
+    workingCapital: null,
+    loanAmount: null,
+    loanClosingCost: null,
+    ebitda: null,
+    loanTerm: null,
+    interestRate: null,
 };
 
 const FormDataContext = createContext<FormDataContextType | undefined>(
@@ -61,7 +121,7 @@ export function FormDataProvider({ children }: { children: ReactNode }) {
 
     const updateFormData = (
         field: keyof FormData,
-        value: string | number | null,
+        value: string | number | boolean | null,
     ) => {
         setFormData((prev) => {
             const newData = { ...prev, [field]: value };

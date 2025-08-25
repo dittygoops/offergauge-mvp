@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../contexts/AuthContext";
-import ContinueWithGoogleButton from "../../components/auth/ContinueWithGoogleButton";
-import Logo from "../../components/Logo";
+import { useAuth } from "../contexts/AuthContext";
+import ContinueWithGoogleButton from "../components/auth/ContinueWithGoogleButton";
+import Logo from "../components/Logo";
 
 function Auth() {
     const { user, loading } = useAuth();

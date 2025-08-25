@@ -1,11 +1,10 @@
-import NavBar from "../../components/NavBar";
-import Card from "../../components/Card";
-import Button from "../../components/Button";
-import BadgeIcon from "../../icons/BadgeIcon";
-import ShieldIcon from "../../icons/ShieldIcon";
-import ArrowRightIcon from "../../icons/ArrowRightIcon";
-import UsersIcon from "../../icons/UsersIcon";
-import CheckIcon from "../../icons/CheckIcon";
+import NavBar from "../components/NavBar";
+import Card from "../components/Card";
+import BadgeIcon from "../icons/BadgeIcon";
+import ShieldIcon from "../icons/ShieldIcon";
+import ArrowRightIcon from "../icons/ArrowRightIcon";
+import UsersIcon from "../icons/UsersIcon";
+import CheckIcon from "../icons/CheckIcon";
 
 import { useNavigate } from "react-router-dom";
 
@@ -27,7 +26,6 @@ function Landing() {
                     <p className="text-xl md:text-2xl text-gray-600 mb-10 max-w-3xl mx-auto">
                         Instantly assess deal viability and optimize your
                         acquisition <br />
-                        financing with AI-powered insights.
                     </p>
                     <button
                         className="inline-flex items-center px-6 py-3 text-lg font-medium text-white rounded-md transition-all duration-300 cursor-pointer group"
