@@ -473,14 +473,6 @@ export function ResultsDashboard() {
 
                     <div className="flex flex-col sm:flex-row gap-4">
                         <button
-                            onClick={() => navigate("/financial-overview")}
-                            className="bg-[var(--color-teal)] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[var(--color-teal)]/90 focus:outline-none focus:ring-2 focus:ring-[var(--color-teal)] focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center space-x-2 min-h-[56px]"
-                        >
-                            <RefreshCw className="w-5 h-5" />
-                            <span>Modify Financing</span>
-                        </button>
-
-                        <button
                             onClick={() => navigate("/business-information")}
                             className="bg-[var(--color-terracotta)] text-white px-8 py-4 rounded-lg font-semibold hover:bg-[var(--color-terracotta-dark)] focus:outline-none focus:ring-2 focus:ring-[var(--color-teal)] focus:ring-offset-2 transition-colors duration-200 flex items-center justify-center space-x-2 min-h-[56px]"
                         >

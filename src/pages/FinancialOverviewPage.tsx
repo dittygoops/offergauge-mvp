@@ -258,7 +258,7 @@ export function FinancialOverviewPage() {
                                     <div className="relative">
                                         <Percent className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--color-gray)] w-4 h-4" />
                                         <input
-                                            type="text"
+                                            type="number"
                                             placeholder="% of Deal"
                                             value={
                                                 formData.sellerFinancingPercent ||
@@ -300,7 +300,7 @@ export function FinancialOverviewPage() {
                                     <div className="relative">
                                         <Percent className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--color-gray)] w-4 h-4" />
                                         <input
-                                            type="text"
+                                            type="number"
                                             placeholder="% of Deal"
                                             value={
                                                 formData.loanClosingCostsPercent ||
@@ -356,7 +356,7 @@ export function FinancialOverviewPage() {
                                     <div className="relative">
                                         <Percent className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--color-gray)] w-4 h-4" />
                                         <input
-                                            type="text"
+                                            type="number"
                                             placeholder="% of Deal"
                                             value={
                                                 formData.buyerCashPercent || ""
@@ -443,7 +443,7 @@ export function FinancialOverviewPage() {
                                     </span>
                                 </label>
                                 <input
-                                    type="text"
+                                    type="number"
                                     placeholder="Enter loan term in years"
                                     value={formData.loanPayments || ""}
                                     onChange={(e) =>
@@ -480,7 +480,7 @@ export function FinancialOverviewPage() {
                                 <div className="relative">
                                     <Percent className="absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--color-gray)] w-5 h-5" />
                                     <input
-                                        type="text"
+                                        type="number"
                                         placeholder="Enter interest rate"
                                         value={formData.interestRate || ""}
                                         onChange={(e) =>
