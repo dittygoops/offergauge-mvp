@@ -17,7 +17,7 @@ function NavBar() {
                             <Logo size={32} showName={false} disabled={false} />
                         </div>
                         <span className="text-xl font-semibold text-gray-900">
-                            Offer Gauge
+                            OfferGauge
                         </span>
                     </div>
 
