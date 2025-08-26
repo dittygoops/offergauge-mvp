@@ -30,6 +30,9 @@ export function BusinessInformationPage() {
 
     const validateForm = () => {
         const newErrors: Record<string, string> = {};
+        if (!formData.businessName || formData.businessName.trim() === "") {
+            newErrors.businessName = "Business name is required";
+        }
         if (!formData.askingPrice || formData.askingPrice < 0) {
             newErrors.askingPrice = "Asking price is required";
         }
@@ -38,6 +41,16 @@ export function BusinessInformationPage() {
         }
         if (!formData.annualNetIncome || formData.annualNetIncome < 0) {
             newErrors.annualNetIncome = "Annual net income is required";
+        }
+        if (!formData.buyerMinSalary || formData.buyerMinSalary < 0) {
+            newErrors.buyerMinSalary = "Buyer minimum salary is required";
+        }
+        if (!formData.capexMaintenance || formData.capexMaintenance < 0) {
+            newErrors.capexMaintenance = "CAPEX (Maintenance) is required";
+        }
+        if (!formData.capexNewInvestments || formData.capexNewInvestments < 0) {
+            newErrors.capexNewInvestments =
+                "CAPEX (New Investments) is required";
         }
         if (
             !formData.workingCapitalRequirement ||
@@ -81,9 +94,13 @@ export function BusinessInformationPage() {
         if (Object.keys(errors).length > 0) {
             // Map error keys to field titles for scrolling
             const errorKeyToFieldTitle: Record<string, string> = {
+                businessName: "Business Name",
                 askingPrice: "Asking Price",
                 annualRevenue: "Annual Revenue",
                 annualNetIncome: "Annual Net Income",
+                buyerMinSalary: "Buyer Min Salary",
+                capexMaintenance: "CAPEX (Maintenance)",
+                capexNewInvestments: "CAPEX (New Investments)",
                 workingCapitalRequirement: "Working Capital Requirement",
                 ffeValue: "FFE Value",
                 inventoryValue: "Inventory Value",
@@ -152,13 +169,16 @@ export function BusinessInformationPage() {
                                     title: "Business Name",
                                     description:
                                         "Name of the business you are acquiring",
-                                    placeholder:
-                                        "Enter business name (optional)",
+                                    placeholder: "Enter business name",
                                     type: "text",
+                                    required: true,
                                 },
                             ]}
                             layout="column"
                             gridCols={1}
+                            fieldErrors={{
+                                "Business Name": !!errors.businessName,
+                            }}
                         />
 
                         {/* Financial Information */}
@@ -434,6 +454,7 @@ export function BusinessInformationPage() {
                                         "Annual salary requirement for buyer",
                                     placeholder: "Enter minimum salary",
                                     type: "number",
+                                    required: true,
                                 },
                                 {
                                     icon: (
@@ -444,6 +465,7 @@ export function BusinessInformationPage() {
                                         "Annual maintenance/replacement costs",
                                     placeholder: "Enter maintenance CAPEX",
                                     type: "number",
+                                    required: true,
                                 },
                                 {
                                     icon: (
@@ -466,6 +488,7 @@ export function BusinessInformationPage() {
                                         "Annual new investment/growth costs",
                                     placeholder: "Enter new investment CAPEX",
                                     type: "number",
+                                    required: true,
                                 },
                             ]}
                             layout="row"
@@ -473,6 +496,11 @@ export function BusinessInformationPage() {
                             fieldErrors={{
                                 "Working Capital Requirement":
                                     !!errors.workingCapitalRequirement,
+                                "Buyer Min Salary": !!errors.buyerMinSalary,
+                                "CAPEX (Maintenance)":
+                                    !!errors.capexMaintenance,
+                                "CAPEX (New Investments)":
+                                    !!errors.capexNewInvestments,
                             }}
                         />
 

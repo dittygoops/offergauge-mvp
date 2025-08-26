@@ -145,6 +145,12 @@ export function FinancialOverviewPage() {
             newErrors.buyerCashPercent = "Buyer cash percentage is required";
         }
         if (
+            formData.loanPayments == null ||
+            formData.loanPayments.toString().trim() === ""
+        ) {
+            newErrors.loanPayments = "Loan payments is required";
+        }
+        if (
             formData.interestRate == null ||
             formData.interestRate.toString().trim() === ""
         ) {
@@ -336,6 +342,9 @@ export function FinancialOverviewPage() {
                                     <div className="flex justify-between items-center">
                                         <span className="text-[var(--color-dark-charcoal)] font-medium">
                                             Buyer Cash
+                                            <span className="text-[var(--color-terracotta)] ml-2">
+                                                *
+                                            </span>
                                         </span>
                                         <span className="text-[var(--color-slate-gray)] font-medium">
                                             {formatCurrency(
@@ -429,6 +438,9 @@ export function FinancialOverviewPage() {
                                 <label className="flex items-center space-x-2 text-[var(--color-dark-charcoal)] font-medium">
                                     <DollarSign className="w-5 h-5 text-[var(--color-teal)]" />
                                     <span>Loan Payments (Years)</span>
+                                    <span className="text-[var(--color-terracotta)] ml-2">
+                                        *
+                                    </span>
                                 </label>
                                 <input
                                     type="text"
@@ -440,8 +452,18 @@ export function FinancialOverviewPage() {
                                             e.target.value,
                                         )
                                     }
-                                    className="w-full px-4 py-4 bg-white border border-[var(--color-gray-light)] rounded-lg text-[var(--color-slate-gray)] placeholder-[var(--color-gray)] focus:outline-none focus:ring-2 focus:ring-[var(--color-teal)] focus:border-transparent transition-colors duration-200 min-h-[56px]"
+                                    className={`w-full px-4 py-4 bg-white border rounded-lg text-[var(--color-slate-gray)] placeholder-[var(--color-gray)] focus:outline-none focus:ring-2 focus:ring-[var(--color-teal)] focus:border-transparent transition-colors duration-200 min-h-[56px] ${
+                                        errors.loanPayments
+                                            ? "border-[var(--color-terracotta)]"
+                                            : "border-[var(--color-gray-light)]"
+                                    }`}
                                 />
+                                {errors.loanPayments && (
+                                    <p className="mt-2 text-sm text-[var(--color-terracotta)] flex items-center space-x-1">
+                                        <span>⚠</span>
+                                        <span>{errors.loanPayments}</span>
+                                    </p>
+                                )}
                                 <p className="text-sm text-[var(--color-gray)]">
                                     Loan term length in years
                                 </p>

@@ -43,6 +43,14 @@ function InputForm({
     // Generate standardized keys from field titles
     const getFieldKey = (title: string): keyof typeof formData => {
         // Convert "Asking Price" -> "askingPrice"
+        // Handle special cases for CAPEX fields
+        if (title === "CAPEX (Maintenance)") {
+            return "capexMaintenance" as keyof typeof formData;
+        }
+        if (title === "CAPEX (New Investments)") {
+            return "capexNewInvestments" as keyof typeof formData;
+        }
+        
         const standardizedKey = title
             .toLowerCase()
             .replace(/\s+(.)/g, (_, char) => char.toUpperCase())
@@ -405,35 +413,47 @@ function InputForm({
                                 </div>
                             </div>
                         ) : (
-                            <input
-                                type="text"
-                                placeholder={field.placeholder || ""}
-                                value={values[index] || ""}
-                                onChange={(e) =>
-                                    handleInputChange(
-                                        index,
-                                        e.target.value,
-                                        field.type,
-                                    )
-                                }
-                                onBlur={(e) =>
-                                    handleInputBlur(
-                                        index,
-                                        e.target.value,
-                                        field.type,
-                                    )
-                                }
-                                className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors text-sm ${
-                                    field.required &&
-                                    fieldErrors &&
-                                    fieldErrors[field.title]
-                                        ? "border-red-500"
-                                        : "border-gray-300"
-                                }`}
-                                style={{
-                                    backgroundColor: "var(--color-white)",
-                                }}
-                            />
+                            <div className="space-y-2">
+                                <input
+                                    type="text"
+                                    placeholder={field.placeholder || ""}
+                                    value={values[index] || ""}
+                                    onChange={(e) =>
+                                        handleInputChange(
+                                            index,
+                                            e.target.value,
+                                            field.type,
+                                        )
+                                    }
+                                    onBlur={(e) =>
+                                        handleInputBlur(
+                                            index,
+                                            e.target.value,
+                                            field.type,
+                                        )
+                                    }
+                                    data-field={field.title}
+                                    className={`w-full px-3 py-2 border-2 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors text-sm ${
+                                        fieldValidatonErrors[index] ||
+                                        (fieldErrors && fieldErrors[field.title])
+                                            ? "border-[var(--color-terracotta)]"
+                                            : "border-[var(--color-gray-light)]"
+                                    }`}
+                                    style={{
+                                        backgroundColor: "var(--color-white)",
+                                    }}
+                                />
+                                {(fieldValidatonErrors[index] ||
+                                    (fieldErrors && fieldErrors[field.title])) && (
+                                    <p className="text-sm text-[var(--color-terracotta)] flex items-center space-x-1">
+                                        <span>⚠</span>
+                                        <span>
+                                            {fieldValidatonErrors[index] ||
+                                                "This field is required"}
+                                        </span>
+                                    </p>
+                                )}
+                            </div>
                         )}
 
                         <p className="text-xs text-gray-600 leading-relaxed text-left">
