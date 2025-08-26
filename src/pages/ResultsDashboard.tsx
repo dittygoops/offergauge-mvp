@@ -302,8 +302,9 @@ export function ResultsDashboard() {
                                 <CashFlowMetric
                                     label="Total Borrowings"
                                     value={formatCurrency(
-                                        metrics.termLoan +
-                                            metrics.workingCapitalRequired,
+                                        (metrics.termLoan +
+                                            metrics.workingCapitalRequired) /
+                                            12,
                                     )}
                                     isHighlighted
                                 />

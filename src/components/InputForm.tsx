@@ -50,7 +50,7 @@ function InputForm({
         if (title === "CAPEX (New Investments)") {
             return "capexNewInvestments" as keyof typeof formData;
         }
-        
+
         const standardizedKey = title
             .toLowerCase()
             .replace(/\s+(.)/g, (_, char) => char.toUpperCase())
@@ -435,7 +435,8 @@ function InputForm({
                                     data-field={field.title}
                                     className={`w-full px-3 py-2 border-2 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors text-sm ${
                                         fieldValidatonErrors[index] ||
-                                        (fieldErrors && fieldErrors[field.title])
+                                        (fieldErrors &&
+                                            fieldErrors[field.title])
                                             ? "border-[var(--color-terracotta)]"
                                             : "border-[var(--color-gray-light)]"
                                     }`}
@@ -444,7 +445,8 @@ function InputForm({
                                     }}
                                 />
                                 {(fieldValidatonErrors[index] ||
-                                    (fieldErrors && fieldErrors[field.title])) && (
+                                    (fieldErrors &&
+                                        fieldErrors[field.title])) && (
                                     <p className="text-sm text-[var(--color-terracotta)] flex items-center space-x-1">
                                         <span>⚠</span>
                                         <span>
