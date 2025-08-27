@@ -1,4 +1,4 @@
-import { ArrowLeft, RefreshCw, TrendingUp, Calculator } from "lucide-react";
+import { ArrowLeft, TrendingUp, Calculator } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useFormData } from "../contexts/FormDataContext";
 
